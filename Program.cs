@@ -1,12 +1,14 @@
 ﻿using System;
-
-namespace Workshop_2
+using View;
+using Model;
+namespace BoatClub
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            MenuView mainMenu = new MenuView();
+            mainMenu.Start();
         }
     }
 }

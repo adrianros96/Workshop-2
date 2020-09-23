@@ -1,11 +1,18 @@
 using System;
+using Model;
 
 namespace View
 {
     class MenuView
     {
+
+        Memberview memberView = new Memberview();
+        BoatView boatView = new BoatView();
+
         public void Start()
         {
+            while (true)
+            {
             Console.WriteLine("0: Exit");
             Console.WriteLine("1: Add Member");
             Console.WriteLine("2: Edit Member");
@@ -25,28 +32,30 @@ namespace View
                         Environment.Exit(0);
                         break;
                     case MenuOptions.AddMember:
-                        Console.WriteLine("Mail motherfocker");
-                        break;
+                        memberView.AddMember();
+                        return;
                     case MenuOptions.EditMember:
+                        memberView.EditMember();
                         break;
                     case MenuOptions.RemoveMember:
+                        memberView.RemoveMember();
                         break;
                     case MenuOptions.ShowUser:
                         Console.WriteLine("Mail motherfocker");
+                        memberView.ShowMember();
                         break;
                     case MenuOptions.VerboseMemberList:
+                        memberView.VerboseMemberList();
                         break;
                     case MenuOptions.CompactMemberList:
+                        memberView.CompactMemberList();
                         break;
                     case MenuOptions.ManageBoats:
+                        boatView.ManageBoats();
                         break;
                 }
             }
+            }
         }
-
-        //  private int MainMenu()
-        // {
-            
-        // }
     }
 }

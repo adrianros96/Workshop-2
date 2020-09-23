@@ -12,18 +12,12 @@ namespace Model
         
         public int MemberID { get; set; }
 
-        public MemberModel(string name, int ssn, int memberID)
+        public MemberModel(string name, int ssn)
         {
             FullName = name;
             SocialSecurityNumber = ssn;
-            MemberID = memberID;
         }
 
-        public void AddMember(MemberModel model) {
-            DatabaseModel dbModel = new DatabaseModel();
-
-            dbModel.AddToJSON(model);
-        }
         public override string ToString()
         {
             return "Name: " + FullName + " SSN: " + SocialSecurityNumber + " MemberID: " + MemberID;

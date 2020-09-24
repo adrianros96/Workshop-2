@@ -30,7 +30,24 @@ namespace View
 
         public void EditMember()
         {
-            System.Console.WriteLine("Hello world");
+            // Console.WriteLine("1: Edit name");
+            // Console.WriteLine("2: Change SSN");
+            // Console.WriteLine("3: Exit");
+            //  switch(Console.ReadLine())
+            //     {
+            //         case "1":
+            //             Environment.Exit(0);
+            //             break;
+            //         case "2":
+            //             memberView.AddMember();
+            //             return;
+            //         case "3":
+            //             memberView.EditMember();
+            //             break;
+            //         case MenuOptions.ManageBoats:
+            //             boatView.ManageBoats();
+            //             break;
+            //     }
         }
 
         public void RemoveMember()
@@ -45,7 +62,10 @@ namespace View
 
         public void ShowMember()
         {
-            System.Console.WriteLine("Hello world");
+            System.Console.WriteLine("Please enter member ID:");
+            int memberID = Int32.Parse(Console.ReadLine());
+
+            dbModel.showMember(memberID);
         }
 
         public void VerboseMemberList()

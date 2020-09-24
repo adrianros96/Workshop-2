@@ -41,7 +41,6 @@ namespace View
                         memberView.RemoveMember();
                         break;
                     case MenuOptions.ShowUser:
-                        Console.WriteLine("Mail motherfocker");
                         memberView.ShowMember();
                         break;
                     case MenuOptions.VerboseMemberList:

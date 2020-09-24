@@ -11,6 +11,7 @@ namespace Model
     {
         public void AddToJSON(MemberModel memberModel)
         {
+            // TODO FIX DRY
             var jsonData = System.IO.File.ReadAllText("Members.json");
             var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
                                                                 ?? new List<MemberModel>();
@@ -18,6 +19,7 @@ namespace Model
             bool uniqueID = UniqueIDcheck(memberModel, memberList);
 
             if(uniqueID){
+                // TODO unique id after deleting member
                 memberModel.MemberID = memberList.Count() + 1;
                 memberList.Add(memberModel);
             } else {
@@ -50,6 +52,21 @@ namespace Model
             memberList.RemoveAll(r => r.MemberID == memberID);
             jsonData = JsonConvert.SerializeObject(memberList);
             System.IO.File.WriteAllText("Members.json", jsonData);
+        }
+
+        public void showMember(int memberID)
+        {
+            var jsonData = System.IO.File.ReadAllText("Members.json");
+            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
+                                                                ?? new List<MemberModel>();
+            foreach (var item in memberList)
+            {
+                if(memberID == item.MemberID)
+                {
+                    System.Console.WriteLine(item);                             
+
+                }
+            }
         }
     }
 }

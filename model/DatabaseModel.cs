@@ -143,11 +143,18 @@ namespace Model
             var jsonData = System.IO.File.ReadAllText("Members.json");
             var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
                                                                 ?? new List<MemberModel>();
-                            
+                
             foreach (var item in memberList)
             {
                 if(memberID == item.MemberID)
                 {
+                    if(memberList.Count() == 0) {
+                        boatModel.BoatID = 1;
+                    } else {
+                        var item = memberList.LastOrDefault();
+                        boatModel.BoatID = item.Boats. + 1;
+                    } 
+
                     System.Console.WriteLine("Boat added to " + item.FullName);                           
                     item.Boats.Add(boatModel);
 

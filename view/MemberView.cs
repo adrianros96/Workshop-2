@@ -86,14 +86,36 @@ namespace View
             dbModel.showMember(memberID);
         }
 
+        // TODO Fix Boat information part in model
         public void VerboseMemberList()
         {
-            System.Console.WriteLine("Hello world");
+            System.Console.WriteLine("Verbose List:");
+            dbModel.showVerboseList();
+            System.Console.WriteLine("1: Exit");
+            switch(Console.ReadLine())
+            {
+                case "1":
+                    Environment.Exit(0);
+                    break;
+            }
+
         }
 
         public void CompactMemberList()
         {
+            System.Console.WriteLine("Compact List:");
+            dbModel.showCompactList();
+            System.Console.WriteLine("1: Exit");
+            switch(Console.ReadLine())
+            {
+                case "1":
+                    Environment.Exit(0);
+                    break;
+                // default:
+                // System.Console.WriteLine("Wrong Input.");
+            }
             
         }
+
     }
 }

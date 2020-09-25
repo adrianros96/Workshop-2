@@ -68,6 +68,34 @@ namespace Model
             }
         }
 
+        public void showVerboseList()
+        {
+            var jsonData = System.IO.File.ReadAllText("Members.json");
+            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
+                                                                ?? new List<MemberModel>();
+            // For loop för indexera ut båt information?
+            foreach (var item in memberList)
+            {
+                    System.Console.WriteLine("Full name: " + item.FullName + "\n" +
+                                            "Social Security Number: " + item.SocialSecurityNumber + "\n" +
+                                            "Member ID Number: " + item.MemberID + "\n" +
+                                            "Boats and information: " + item.Boats + "\n");
+            }
+        }
+
+        public void showCompactList()
+        {
+            var jsonData = System.IO.File.ReadAllText("Members.json");
+            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
+                                                                ?? new List<MemberModel>();
+            foreach (var item in memberList)
+            {
+                    System.Console.WriteLine("Full name: " + item.FullName + "\n" + 
+                                            "Member ID: " + item.MemberID + "\n" +
+                                            "Number of boats: " + item.Boats.Count() + "\n");
+            }
+        }
+
         public void editMemberName(int memberID)
         {
             var jsonData = System.IO.File.ReadAllText("Members.json");
@@ -105,5 +133,45 @@ namespace Model
             jsonData = JsonConvert.SerializeObject(memberList);
             System.IO.File.WriteAllText("Members.json", jsonData);
         }
+
+/////////////////////////////////////////
+
+
+        public void AddBoatToJSON(BoatModel boatModel, int memberID)
+        {
+            // TODO FIX DRY
+            var jsonData = System.IO.File.ReadAllText("Members.json");
+            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
+                                                                ?? new List<MemberModel>();
+                            
+            foreach (var item in memberList)
+            {
+                if(memberID == item.MemberID)
+                {
+                    System.Console.WriteLine("Boat added to " + item.FullName);                           
+                    item.Boats.Add(boatModel);
+
+                }
+
+                    // if(item.Boats.Count() == 0) {
+                    //     memberModel.MemberID = 1;
+                    //     } else {
+                    //     var item.Boats = memberList.LastOrDefault();
+                    //     memberModel.MemberID = item.MemberID + 1;
+                    //     }
+                    //     // memberModel.MemberID = memberList.LastOrDefault();º
+                    //     memberList.Add(memberModel); 
+
+            }
+
+            // Update json data string
+            jsonData = JsonConvert.SerializeObject(memberList);
+            System.IO.File.WriteAllText("Members.json", jsonData);
+        }
+
+
+
     }
+
+    
 }

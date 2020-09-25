@@ -1,6 +1,10 @@
 # Workshop-2
 Workshop-2 1DV607
 
+## Project Members
+Adrian Rosales
+Sebastian Jonsson
+
 ## Compacy List
 name, member id and number of boats (förenklat)
 

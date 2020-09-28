@@ -22,7 +22,7 @@ namespace View
                 {
                     case "1":
                         AddBoat();
-                        break;
+                        return;
                     case "2":
                         EditBoat();
                         break;
@@ -50,13 +50,11 @@ namespace View
             System.Console.WriteLine("Type member ID to assign boat to");
             memberID = Int32.Parse(Console.ReadLine());
             
-            if(boatType.Length > 0 && length > 89999)
-            {
+            // if(boatType.Length > 0 && length > 89999)
+            // {
                 boatModel = new BoatModel(boatType, length);
 
                 dbModel.AddBoatToJSON(boatModel, memberID);
-            
-            }
         }
 
         public void EditBoat()

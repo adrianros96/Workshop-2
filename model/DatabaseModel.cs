@@ -143,31 +143,21 @@ namespace Model
             var jsonData = System.IO.File.ReadAllText("Members.json");
             var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
                                                                 ?? new List<MemberModel>();
-                
-            foreach (var item in memberList)
+            foreach (var member in memberList)
             {
-                if(memberID == item.MemberID)
+                if(memberID == member.MemberID)
                 {
-                    if(memberList.Count() == 0) {
-                        boatModel.BoatID = 1;
-                    } else {
-                        var item = memberList.LastOrDefault();
-                        boatModel.BoatID = item.Boats. + 1;
-                    } 
-
-                    System.Console.WriteLine("Boat added to " + item.FullName);                           
-                    item.Boats.Add(boatModel);
-
+                        if(member.Boats.Count() == 0) {
+                           boatModel.BoatID = 1;
+                        } 
+                        var item = member.Boats.LastOrDefault();
+                        boatModel.BoatID = item.BoatID + 1;
+                    // member.Boats.AddRange(boatModel);
+                    // memberList.AddRange()
+                    member.Boats.Add(boatModel);
+                    System.Console.WriteLine(boatModel.BoatType + " added to " + member.FullName);        
+                         
                 }
-
-                    // if(item.Boats.Count() == 0) {
-                    //     memberModel.MemberID = 1;
-                    //     } else {
-                    //     var item.Boats = memberList.LastOrDefault();
-                    //     memberModel.MemberID = item.MemberID + 1;
-                    //     }
-                    //     // memberModel.MemberID = memberList.LastOrDefault();º
-                    //     memberList.Add(memberModel); 
 
             }
 

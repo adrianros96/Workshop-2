@@ -14,5 +14,10 @@ namespace Model
             BoatType = boatType;
             BoatLength = length;
         }
+
+         public override string ToString()
+        {
+            return "Boattype" + BoatType;
+        }
     }
 }

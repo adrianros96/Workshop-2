@@ -20,7 +20,7 @@ namespace Model
 
         public override string ToString()
         {
-            return "Name: " + FullName + " SSN: " + SocialSecurityNumber + " MemberID: " + MemberID;
+            return "Name: " + FullName + " SSN: " + SocialSecurityNumber + " MemberID: " + MemberID + " Boat/s: " + Boats;
         }
     }
 

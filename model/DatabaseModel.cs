@@ -12,9 +12,7 @@ namespace Model
         public void AddToJSON(MemberModel memberModel)
         {
             // TODO FIX DRY
-            var jsonData = System.IO.File.ReadAllText("Members.json");
-            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
-                                                                ?? new List<MemberModel>();
+            var memberList = ReadMemberListFile();
 
             if(memberList.Count() == 0) {
                 memberModel.MemberID = 1;
@@ -26,25 +24,21 @@ namespace Model
                 memberList.Add(memberModel);
 
             // Update json data string
-            jsonData = JsonConvert.SerializeObject(memberList);
-            System.IO.File.WriteAllText("Members.json", jsonData);
+            WriteMemberListFile(memberList);
         }
 
         public void removeMember(int memberID) 
         {
-            var jsonData = System.IO.File.ReadAllText("Members.json");
-            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
-                                                                ?? new List<MemberModel>();
+            var memberList = ReadMemberListFile();
+
             memberList.RemoveAll(r => r.MemberID == memberID);
-            jsonData = JsonConvert.SerializeObject(memberList);
-            System.IO.File.WriteAllText("Members.json", jsonData);
+            WriteMemberListFile(memberList);
         }
 
         public void showMember(int memberID)
         {
-            var jsonData = System.IO.File.ReadAllText("Members.json");
-            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
-                                                                ?? new List<MemberModel>();
+            var memberList = ReadMemberListFile();
+
             foreach (var item in memberList)
             {
                 if(memberID == item.MemberID)
@@ -57,9 +51,8 @@ namespace Model
 
         public void showVerboseList()
         {
-            var jsonData = System.IO.File.ReadAllText("Members.json");
-            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
-                                                                ?? new List<MemberModel>();
+            var memberList = ReadMemberListFile();
+
             // For loop för indexera ut båt information?
             foreach (var member in memberList)
             {
@@ -75,9 +68,8 @@ namespace Model
 
         public void showCompactList()
         {
-            var jsonData = System.IO.File.ReadAllText("Members.json");
-            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
-                                                                ?? new List<MemberModel>();
+            var memberList = ReadMemberListFile();
+
             foreach (var item in memberList)
             {
                     System.Console.WriteLine("Full name: " + item.FullName + "\n" + 
@@ -88,9 +80,8 @@ namespace Model
 
         public void editMemberName(int memberID)
         {
-            var jsonData = System.IO.File.ReadAllText("Members.json");
-            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
-                                                                ?? new List<MemberModel>();
+            var memberList = ReadMemberListFile();
+
             foreach (var item in memberList)
             {
                 if(memberID == item.MemberID)
@@ -100,16 +91,13 @@ namespace Model
                 }
             }
 
-            // Update json data string
-            jsonData = JsonConvert.SerializeObject(memberList);
-            System.IO.File.WriteAllText("Members.json", jsonData);
+            WriteMemberListFile(memberList);
         }
 
         public void editMemberSSN(int memberID)
         {
-            var jsonData = System.IO.File.ReadAllText("Members.json");
-            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
-                                                                ?? new List<MemberModel>();
+            var memberList = ReadMemberListFile();
+
             foreach (var item in memberList)
             {
                 if(memberID == item.MemberID)
@@ -119,17 +107,12 @@ namespace Model
                 }
             }
 
-            // Update json data string
-            jsonData = JsonConvert.SerializeObject(memberList);
-            System.IO.File.WriteAllText("Members.json", jsonData);
+            WriteMemberListFile(memberList);
         }
 
         public void AddBoatToJSON(BoatModel boatModel, int memberID)
         {
-            // TODO FIX DRY
-            var jsonData = System.IO.File.ReadAllText("Members.json");
-            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
-                                                                ?? new List<MemberModel>();
+            var memberList = ReadMemberListFile();
             foreach (var member in memberList)
             {
                 if(memberID == member.MemberID)
@@ -146,17 +129,28 @@ namespace Model
                 }
 
             }
+            WriteMemberListFile(memberList);
+        }
 
-            // Update json data string
-            jsonData = JsonConvert.SerializeObject(memberList);
+
+        public void WriteMemberListFile(List<MemberModel> memberList)
+        {
+            var jsonData = JsonConvert.SerializeObject(memberList);
             System.IO.File.WriteAllText("Members.json", jsonData);
         }
 
-        public bool CheckIfMemberExists(int memberID) 
+        public List<MemberModel> ReadMemberListFile()
         {
             var jsonData = System.IO.File.ReadAllText("Members.json");
             var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
                                                                 ?? new List<MemberModel>();
+            return memberList;
+        }
+
+        public bool CheckIfMemberExists(int memberID) 
+        {
+            var memberList = ReadMemberListFile();
+
             bool memberExists = false;
 
             foreach (var member in memberList)
@@ -175,9 +169,8 @@ namespace Model
 
         public void RemoveBoat(int memberID, int boatID) 
         {
-            var jsonData = System.IO.File.ReadAllText("Members.json");
-            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
-                                                                ?? new List<MemberModel>();
+            var memberList = ReadMemberListFile();
+
             foreach (var member in memberList)
             {
                 if(memberID == member.MemberID)
@@ -185,15 +178,13 @@ namespace Model
                     member.Boats.RemoveAll(r => r.BoatID == boatID);
                 }
             }                                                   
-            jsonData = JsonConvert.SerializeObject(memberList);
-            System.IO.File.WriteAllText("Members.json", jsonData);
+            WriteMemberListFile(memberList);
         }
 
         public void EditBoatType(int memberID, int boatID)
         {
-            var jsonData = System.IO.File.ReadAllText("Members.json");
-            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
-                                                                ?? new List<MemberModel>();
+            var memberList = ReadMemberListFile();
+
             foreach (var member in memberList)
             {
                 if(memberID == member.MemberID)
@@ -209,16 +200,13 @@ namespace Model
                 }
             }
 
-            // Update json data string
-            jsonData = JsonConvert.SerializeObject(memberList);
-            System.IO.File.WriteAllText("Members.json", jsonData);
+            WriteMemberListFile(memberList);
         }
 
         public void EditBoatLength(int memberID, int boatID)
         {
-            var jsonData = System.IO.File.ReadAllText("Members.json");
-            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
-                                                                ?? new List<MemberModel>();
+           var memberList = ReadMemberListFile();
+
             foreach (var member in memberList)
             {
                 if(memberID == member.MemberID)
@@ -234,9 +222,7 @@ namespace Model
                 }
             }
 
-            // Update json data string
-            jsonData = JsonConvert.SerializeObject(memberList);
-            System.IO.File.WriteAllText("Members.json", jsonData);
+            WriteMemberListFile(memberList);
         }
 
         

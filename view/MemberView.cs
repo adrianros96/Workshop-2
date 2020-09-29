@@ -6,7 +6,6 @@ namespace View
     class Memberview
     {
         MemberModel memberModel;
-        BoatModel boatModel;
         DatabaseModel dbModel = new DatabaseModel();
 
         public void AddMember()

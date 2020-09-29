@@ -27,6 +27,7 @@ namespace View
             dbModel.AddToJSON(memberModel);
             System.Console.WriteLine(memberModel.ToString());
             }
+            ExitToMainMenu();
         }
 
         public void EditMember()
@@ -45,7 +46,6 @@ namespace View
                         EditSSN();
                         break;
                     case "3":
-                        Environment.Exit(0);
                         break;                        
                 }
         }
@@ -56,7 +56,8 @@ namespace View
             Console.Clear();
             System.Console.WriteLine("Edit user full name by entering ID");
             ID = Int32.Parse(Console.ReadLine());
-            dbModel.editMemberName(ID);  
+            dbModel.editMemberName(ID);
+            ExitToMainMenu();
         }
 
         public void EditSSN()
@@ -66,6 +67,7 @@ namespace View
             System.Console.WriteLine("Change user SSN by entering ID");
             ID = Int32.Parse(Console.ReadLine());
             dbModel.editMemberSSN(ID);
+            ExitToMainMenu();
         }
 
         public void RemoveMember()
@@ -75,7 +77,7 @@ namespace View
             System.Console.WriteLine("Remove user by entering ID");
             ID = Int32.Parse(Console.ReadLine());
             dbModel.removeMember(ID);
-            System.Console.WriteLine("Hello world");
+            ExitToMainMenu();
         }
 
         public void ShowMember()
@@ -84,37 +86,32 @@ namespace View
             int memberID = Int32.Parse(Console.ReadLine());
 
             dbModel.showMember(memberID);
+            ExitToMainMenu();
         }
 
-        // TODO Fix Boat information part in model
         public void VerboseMemberList()
         {
             System.Console.WriteLine("Verbose List:");
             dbModel.showVerboseList();
-            System.Console.WriteLine("1: Exit");
-            switch(Console.ReadLine())
-            {
-                case "1":
-                    Environment.Exit(0);
-                    break;
-            }
-
+            ExitToMainMenu();
         }
 
         public void CompactMemberList()
         {
             System.Console.WriteLine("Compact List:");
             dbModel.showCompactList();
-            System.Console.WriteLine("1: Exit");
+            ExitToMainMenu();
+        }
+
+        public void ExitToMainMenu()
+        {
+            System.Console.WriteLine("1: Back to main menu");
             switch(Console.ReadLine())
             {
                 case "1":
-                    Environment.Exit(0);
+                    Console.Clear();
                     break;
-                // default:
-                // System.Console.WriteLine("Wrong Input.");
             }
-            
         }
     }
 }

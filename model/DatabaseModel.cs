@@ -30,19 +30,6 @@ namespace Model
             System.IO.File.WriteAllText("Members.json", jsonData);
         }
 
-        //   public bool UniqueIDcheck(MemberModel model, List<MemberModel> memberList) 
-        //   {
-        //     bool found = false;
-        //     foreach (var id in memberList)
-        //     {
-        //         if (model.MemberID == id.MemberID)
-        //         {
-        //             found = true;
-        //         }
-        //     }
-        //     return found;
-        // }
-
         public void removeMember(int memberID) 
         {
             var jsonData = System.IO.File.ReadAllText("Members.json");
@@ -136,9 +123,6 @@ namespace Model
             jsonData = JsonConvert.SerializeObject(memberList);
             System.IO.File.WriteAllText("Members.json", jsonData);
         }
-
-/////////////////////////////////////////
-
 
         public void AddBoatToJSON(BoatModel boatModel, int memberID)
         {
@@ -254,5 +238,8 @@ namespace Model
             jsonData = JsonConvert.SerializeObject(memberList);
             System.IO.File.WriteAllText("Members.json", jsonData);
         }
+
+        
     }
+    
 }

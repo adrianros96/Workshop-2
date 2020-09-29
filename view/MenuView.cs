@@ -33,7 +33,7 @@ namespace View
                         break;
                     case MenuOptions.AddMember:
                         memberView.AddMember();
-                        return;
+                        break;
                     case MenuOptions.EditMember:
                         memberView.EditMember();
                         break;

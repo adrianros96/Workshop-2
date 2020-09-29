@@ -57,14 +57,76 @@ namespace View
                 dbModel.AddBoatToJSON(boatModel, memberID);
         }
 
-        public void EditBoat()
-        {
-
-        }
-
         public void RemoveBoat()
         {
+            Console.Clear();
+            int memberID;
+            int boatID;
 
+            System.Console.WriteLine("Enter your Member ID:");
+            memberID = Int32.Parse(Console.ReadLine());
+            bool result = dbModel.CheckIfMemberExists(memberID);
+            if (result)
+            {
+                System.Console.WriteLine("Select the boat ID:");
+                boatID = Int32.Parse(Console.ReadLine());
+                dbModel.RemoveBoat(memberID, boatID);
+            }
+        }
+
+        public void EditBoat()
+        {
+            Console.Clear();
+
+            Console.WriteLine("1: Edit Boat Type");
+            Console.WriteLine("2: Edit Boat Length");
+            Console.WriteLine("3: Exit");
+             switch(Console.ReadLine())
+                {
+                    case "1":
+                        EditBoatType();
+                        break;
+                    case "2":
+                        EditBoatLength();
+                        break;
+                    case "3":
+                        Environment.Exit(0);
+                        break;                        
+                }
+        }
+
+        public void EditBoatType()
+        {
+            Console.Clear();
+            int memberID;
+            int boatID;
+
+            System.Console.WriteLine("Enter the Member ID:");
+            memberID = Int32.Parse(Console.ReadLine());
+            bool result = dbModel.CheckIfMemberExists(memberID);
+            if (result)
+            {
+                System.Console.WriteLine("Select the boat ID:");
+                boatID = Int32.Parse(Console.ReadLine());
+                dbModel.EditBoatType(memberID, boatID);
+            }
+        }
+
+        public void EditBoatLength()
+        {
+            Console.Clear();
+            int memberID;
+            int boatID;
+
+            System.Console.WriteLine("Enter the Member ID:");
+            memberID = Int32.Parse(Console.ReadLine());
+            bool result = dbModel.CheckIfMemberExists(memberID);
+            if (result)
+            {
+                System.Console.WriteLine("Select the boat ID:");
+                boatID = Int32.Parse(Console.ReadLine());
+                dbModel.EditBoatLength(memberID, boatID);
+            }
         }
     }
 }

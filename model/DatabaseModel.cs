@@ -74,12 +74,15 @@ namespace Model
             var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
                                                                 ?? new List<MemberModel>();
             // For loop för indexera ut båt information?
-            foreach (var item in memberList)
+            foreach (var member in memberList)
             {
-                    System.Console.WriteLine("Full name: " + item.FullName + "\n" +
-                                            "Social Security Number: " + item.SocialSecurityNumber + "\n" +
-                                            "Member ID Number: " + item.MemberID + "\n" +
-                                            "Boats and information: " + item.Boats + "\n");
+                 System.Console.WriteLine("Full name: " + member.FullName + "\n" +
+                                            "Social Security Number: " + member.SocialSecurityNumber + "\n" +
+                                            "Member ID Number: " + member.MemberID + "\n" + "Boats and information: ");
+                foreach (var boat in member.Boats)
+                {
+                    System.Console.WriteLine("BOAT: ID - " + boat.BoatID + ", Type - " + boat.BoatType + ", Length - " + boat.BoatLength + " Meters\n");
+                }
             }
         }
 
@@ -149,14 +152,13 @@ namespace Model
                 {
                         if(member.Boats.Count() == 0) {
                            boatModel.BoatID = 1;
-                        } 
-                        var item = member.Boats.LastOrDefault();
-                        boatModel.BoatID = item.BoatID + 1;
-                    // member.Boats.AddRange(boatModel);
-                    // memberList.AddRange()
-                    member.Boats.Add(boatModel);
-                    System.Console.WriteLine(boatModel.BoatType + " added to " + member.FullName);        
-                         
+                        } else {
+                            var item = member.Boats.LastOrDefault();
+                            boatModel.BoatID = item.BoatID + 1;
+                        }
+
+                        member.Boats.Add(boatModel);
+                        System.Console.WriteLine(boatModel.BoatType + " added to " + member.FullName);          
                 }
 
             }
@@ -166,9 +168,91 @@ namespace Model
             System.IO.File.WriteAllText("Members.json", jsonData);
         }
 
+        public bool CheckIfMemberExists(int memberID) 
+        {
+            var jsonData = System.IO.File.ReadAllText("Members.json");
+            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
+                                                                ?? new List<MemberModel>();
+            bool memberExists = false;
 
+            foreach (var member in memberList)
+            {
+                if(memberID == member.MemberID)
+                {
+                    memberExists = true;
+                    foreach (var boat in member.Boats)
+                    {
+                        System.Console.WriteLine("BOAT: ID - " + boat.BoatID + ", Type - " + boat.BoatType + ", Length - " + boat.BoatLength + " Meters\n");
+                    }                         
+                }
+            }
+                return memberExists;
+        } 
 
+        public void RemoveBoat(int memberID, int boatID) 
+        {
+            var jsonData = System.IO.File.ReadAllText("Members.json");
+            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
+                                                                ?? new List<MemberModel>();
+            foreach (var member in memberList)
+            {
+                if(memberID == member.MemberID)
+                {
+                    member.Boats.RemoveAll(r => r.BoatID == boatID);
+                }
+            }                                                   
+            jsonData = JsonConvert.SerializeObject(memberList);
+            System.IO.File.WriteAllText("Members.json", jsonData);
+        }
+
+        public void EditBoatType(int memberID, int boatID)
+        {
+            var jsonData = System.IO.File.ReadAllText("Members.json");
+            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
+                                                                ?? new List<MemberModel>();
+            foreach (var member in memberList)
+            {
+                if(memberID == member.MemberID)
+                {
+                    foreach (var boat in member.Boats)
+                    {
+                        if(boatID == boat.BoatID)
+                        {
+                            System.Console.WriteLine("Enter new type: ");
+                            boat.BoatType = Console.ReadLine();
+                        }
+                    }     
+                }
+            }
+
+            // Update json data string
+            jsonData = JsonConvert.SerializeObject(memberList);
+            System.IO.File.WriteAllText("Members.json", jsonData);
+        }
+
+        public void EditBoatLength(int memberID, int boatID)
+        {
+            var jsonData = System.IO.File.ReadAllText("Members.json");
+            var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
+                                                                ?? new List<MemberModel>();
+            foreach (var member in memberList)
+            {
+                if(memberID == member.MemberID)
+                {
+                    foreach (var boat in member.Boats)
+                    {
+                        if(boatID == boat.BoatID)
+                        {
+                            System.Console.WriteLine("Enter new length: ");
+                            boat.BoatLength = Int32.Parse(Console.ReadLine());
+                        }
+                    }     
+                }
+            }
+
+            // Update json data string
+            jsonData = JsonConvert.SerializeObject(memberList);
+            System.IO.File.WriteAllText("Members.json", jsonData);
+        }
     }
-
-    
 }

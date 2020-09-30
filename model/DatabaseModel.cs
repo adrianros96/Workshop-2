@@ -133,12 +133,12 @@ namespace Model
         public void WriteMemberListFile(List<MemberModel> memberList)
         {
             var jsonData = JsonConvert.SerializeObject(memberList);
-            System.IO.File.WriteAllText("Members.json", jsonData);
+            System.IO.File.WriteAllText("MemberData/Members.json", jsonData);
         }
 
         public List<MemberModel> ReadMemberListFile()
         {
-            var jsonData = System.IO.File.ReadAllText("Members.json");
+            var jsonData = System.IO.File.ReadAllText("MemberData/Members.json");
             var memberList = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData) 
                                                                 ?? new List<MemberModel>();
             return memberList;

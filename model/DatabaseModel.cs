@@ -11,7 +11,6 @@ namespace Model
     {
         public void AddToJSON(MemberModel memberModel)
         {
-            // TODO FIX DRY
             var memberList = ReadMemberListFile();
 
             if(memberList.Count() == 0) {
@@ -20,10 +19,9 @@ namespace Model
                 var item = memberList.LastOrDefault();
                 memberModel.MemberID = item.MemberID + 1;
                 }
-                // memberModel.MemberID = memberList.LastOrDefault();º
+
                 memberList.Add(memberModel);
 
-            // Update json data string
             WriteMemberListFile(memberList);
         }
 
@@ -53,7 +51,6 @@ namespace Model
         {
             var memberList = ReadMemberListFile();
 
-            // For loop för indexera ut båt information?
             foreach (var member in memberList)
             {
                  System.Console.WriteLine("Full name: " + member.FullName + "\n" +

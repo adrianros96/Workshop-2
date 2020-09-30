@@ -12,21 +12,29 @@ namespace View
         {
             Console.Clear();
 
-            string name;
-            int ssn;
-
-            System.Console.WriteLine("Enter your full name");
-            name = Console.ReadLine();
-            System.Console.WriteLine("Enter you social security number");
-            ssn = Int32.Parse(Console.ReadLine());
-            
-            if(name.Length > 0 && ssn > 89999)
+            try
             {
-            memberModel = new MemberModel(name, ssn);
-            dbModel.AddToJSON(memberModel);
-            System.Console.WriteLine(memberModel.ToString());
+                string name;
+                int ssn;
+
+                System.Console.WriteLine("Enter your full name");
+                name = Console.ReadLine();
+                System.Console.WriteLine("Enter you social security number format: yymmdd");
+                ssn = Int32.Parse(Console.ReadLine());
+                
+                if(name.Length > 1 && ssn > 1000 && ssn < Int32.MaxValue)
+                {
+                memberModel = new MemberModel(name, ssn);
+                dbModel.AddToJSON(memberModel);
+                System.Console.WriteLine(memberModel.ToString());
+                }
             }
-            ExitToMainMenu();
+            catch (Exception)
+            {     
+                throw new Exception("Not a valid input");
+            }
+            
+            
         }
 
         public void EditMember()
@@ -35,7 +43,7 @@ namespace View
 
             Console.WriteLine("1: Edit name");
             Console.WriteLine("2: Change SSN");
-            Console.WriteLine("3: Exit");
+            Console.WriteLine("Any key: Exit");
              switch(Console.ReadLine())
                 {
                     case "1":
@@ -51,41 +59,66 @@ namespace View
 
         public void EditName()
         {
-            int ID; 
-            Console.Clear();
-            System.Console.WriteLine("Edit user full name by entering ID");
-            ID = Int32.Parse(Console.ReadLine());
-            dbModel.editMemberName(ID);
-            ExitToMainMenu();
+            try
+            {
+                int ID; 
+                Console.Clear();
+                System.Console.WriteLine("Edit user full name by entering ID");
+                ID = Int32.Parse(Console.ReadLine());
+                dbModel.editMemberName(ID);
+                }
+            catch (Exception)
+            {     
+                throw new Exception("Not a valid number");
+            }
         }
 
         public void EditSSN()
         {
+            try
+            {
             int ID; 
             Console.Clear();
             System.Console.WriteLine("Change user SSN by entering ID");
             ID = Int32.Parse(Console.ReadLine());
             dbModel.editMemberSSN(ID);
-            ExitToMainMenu();
+            }
+            catch (Exception)
+            {     
+                throw new Exception("Not a valid number");
+            }
         }
 
         public void RemoveMember()
         {
+            try
+            {
             int ID; 
             Console.Clear();
             System.Console.WriteLine("Remove user by entering ID");
             ID = Int32.Parse(Console.ReadLine());
             dbModel.removeMember(ID);
-            ExitToMainMenu();
+            }
+            catch (Exception)
+            {     
+                throw new Exception("Not a valid number");
+            }
         }
 
         public void ShowMember()
         {
-            System.Console.WriteLine("Please enter member ID:");
-            int memberID = Int32.Parse(Console.ReadLine());
+            try
+            {
+                System.Console.WriteLine("Please enter member ID:");
+                int memberID = Int32.Parse(Console.ReadLine());
 
-            dbModel.showMember(memberID);
-            ExitToMainMenu();
+                dbModel.showMember(memberID);
+            
+            } 
+            catch (Exception)
+            {     
+                throw new Exception("Not a valid number");
+            }
         }
 
         public void VerboseMemberList()

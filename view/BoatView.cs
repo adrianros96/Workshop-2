@@ -37,36 +37,49 @@ namespace View
         {
             Console.Clear();
 
-            string boatType;
-            int length;
-            int memberID;
+            try {
+                string boatType;
+                int length;
+                int memberID;
 
-            System.Console.WriteLine("Type of boat: Sailboat, Motorsailer, kayak/Canoe, Other");
-            boatType = Console.ReadLine();
-            System.Console.WriteLine("Enter the length in meters of your boat");
-            length = Int32.Parse(Console.ReadLine());
-            System.Console.WriteLine("Type member ID to assign boat to");
-            memberID = Int32.Parse(Console.ReadLine());
+                System.Console.WriteLine("Type of boat: Sailboat, Motorsailer, kayak/Canoe, Other");
+                boatType = Console.ReadLine();
+                System.Console.WriteLine("Enter the length in meters of your boat");
+                length = Int32.Parse(Console.ReadLine());
+                System.Console.WriteLine("Type member ID to assign boat to");
+                memberID = Int32.Parse(Console.ReadLine());
 
-            boatModel = new BoatModel(boatType, length);
+                boatModel = new BoatModel(boatType, length);
 
-            dbModel.AddBoatToJSON(boatModel, memberID);
+                dbModel.AddBoatToJSON(boatModel, memberID);
+            }
+            catch (Exception)
+            {     
+                throw new Exception("Not a valid input");
+            }
         }
 
         public void RemoveBoat()
         {
             Console.Clear();
-            int memberID;
-            int boatID;
 
-            System.Console.WriteLine("Enter your Member ID:");
-            memberID = Int32.Parse(Console.ReadLine());
-            bool result = dbModel.CheckIfMemberExists(memberID);
-            if (result)
-            {
-                System.Console.WriteLine("Select the boat ID:");
-                boatID = Int32.Parse(Console.ReadLine());
-                dbModel.RemoveBoat(memberID, boatID);
+            try {
+                int memberID;
+                int boatID;
+
+                System.Console.WriteLine("Enter your Member ID:");
+                memberID = Int32.Parse(Console.ReadLine());
+                bool result = dbModel.CheckIfMemberExists(memberID);
+                if (result)
+                {
+                    System.Console.WriteLine("Select the boat ID:");
+                    boatID = Int32.Parse(Console.ReadLine());
+                    dbModel.RemoveBoat(memberID, boatID);
+                }
+            }
+            catch (Exception)
+            {     
+                throw new Exception("Not a valid number");
             }
         }
 
@@ -76,7 +89,7 @@ namespace View
 
             Console.WriteLine("1: Edit Boat Type");
             Console.WriteLine("2: Edit Boat Length");
-            Console.WriteLine("3: Exit");
+            Console.WriteLine("Any key: Exit");
              switch(Console.ReadLine())
                 {
                     case "1":
@@ -86,7 +99,6 @@ namespace View
                         EditBoatLength();
                         break;
                     case "3":
-                        Environment.Exit(0);
                         break;                        
                 }
         }
@@ -94,34 +106,48 @@ namespace View
         public void EditBoatType()
         {
             Console.Clear();
-            int memberID;
-            int boatID;
 
-            System.Console.WriteLine("Enter the Member ID:");
-            memberID = Int32.Parse(Console.ReadLine());
-            bool result = dbModel.CheckIfMemberExists(memberID);
-            if (result)
-            {
-                System.Console.WriteLine("Select the boat ID:");
-                boatID = Int32.Parse(Console.ReadLine());
-                dbModel.EditBoatType(memberID, boatID);
+            try {
+                int memberID;
+                int boatID;
+
+                System.Console.WriteLine("Enter the Member ID:");
+                memberID = Int32.Parse(Console.ReadLine());
+                bool result = dbModel.CheckIfMemberExists(memberID);
+                if (result)
+                {
+                    System.Console.WriteLine("Select the boat ID:");
+                    boatID = Int32.Parse(Console.ReadLine());
+                    dbModel.EditBoatType(memberID, boatID);
+                }
+            }
+            catch (Exception)
+            {     
+                throw new Exception("Not a valid number");
             }
         }
 
         public void EditBoatLength()
         {
             Console.Clear();
-            int memberID;
-            int boatID;
 
-            System.Console.WriteLine("Enter the Member ID:");
-            memberID = Int32.Parse(Console.ReadLine());
-            bool result = dbModel.CheckIfMemberExists(memberID);
-            if (result)
-            {
-                System.Console.WriteLine("Select the boat ID:");
-                boatID = Int32.Parse(Console.ReadLine());
-                dbModel.EditBoatLength(memberID, boatID);
+            try {
+                int memberID;
+                int boatID;
+
+                System.Console.WriteLine("Enter the Member ID:");
+                memberID = Int32.Parse(Console.ReadLine());
+                bool result = dbModel.CheckIfMemberExists(memberID);
+                if (result)
+                {
+                    System.Console.WriteLine("Select the boat ID:");
+                    boatID = Int32.Parse(Console.ReadLine());
+                    dbModel.EditBoatLength(memberID, boatID);
+                }
+            }
+            catch (Exception)
+            {     
+                throw new Exception("Not a valid number");
             }
         }
     }

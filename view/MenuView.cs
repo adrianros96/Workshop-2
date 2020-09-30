@@ -11,7 +11,9 @@ namespace View
 
         public void Start()
         {
-            while (true)
+            try
+            {
+                while (true)
             {
             Console.WriteLine("0: Exit");
             Console.WriteLine("1: Add Member");
@@ -55,6 +57,13 @@ namespace View
                 }
             }
             }
+            }
+            catch (Exception e)
+            {               
+                Console.WriteLine("ERROR: " + e);
+                Start();
+            }
+            
         }
     }
 }

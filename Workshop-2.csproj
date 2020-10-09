@@ -5,7 +5,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Workshop_2</RootNamespace>
 	  <PublishTrimmed>true</PublishTrimmed>
+<<<<<<< HEAD
 	  <PublishSingleFile>false</PublishSingleFile>
+=======
+	  <PublishSingleFile>fa</PublishSingleFile>
+>>>>>>> c368827b0b6b832b878f6ec0ca883fd8651bac3c
   </PropertyGroup>
 
   <ItemGroup>

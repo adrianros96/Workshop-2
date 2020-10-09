@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Workshop_2</RootNamespace>
 	  <PublishTrimmed>true</PublishTrimmed>
-	  <PublishSingleFile>true</PublishSingleFile>
+	  <PublishSingleFile>fa</PublishSingleFile>
   </PropertyGroup>
 
   <ItemGroup>

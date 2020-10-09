@@ -5,7 +5,6 @@ namespace Model
         public int BoatID { get; set; }
 
         public string BoatType { get; set; }
-        // (Sailboat, Motorsailer, kayak/Canoe, Other)
 
         public int BoatLength{ get; set; }
 

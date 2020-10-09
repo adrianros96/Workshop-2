@@ -9,23 +9,27 @@ namespace Model
 {
     class DatabaseModel
     {
+
+        MemberModel memberModel;
         public void AddToJSON(MemberModel memberModel)
         {
             var memberList = ReadMemberListFile();
 
-            if(memberList.Count() == 0) {
+            if(memberList.Count() == 0) 
+            {
                 memberModel.MemberID = 1;
-                } else {
+            }
+            else 
+            {
                 var item = memberList.LastOrDefault();
                 memberModel.MemberID = item.MemberID + 1;
-                }
-
-                memberList.Add(memberModel);
+            }
+            memberList.Add(memberModel);
 
             WriteMemberListFile(memberList);
         }
 
-        public void removeMember(int memberID) 
+        public void RemoveMember(int memberID) 
         {
             var memberList = ReadMemberListFile();
 
@@ -33,7 +37,7 @@ namespace Model
             WriteMemberListFile(memberList);
         }
 
-        public void showMember(int memberID)
+        public void ShowMember(int memberID)
         {
             var memberList = ReadMemberListFile();
 
@@ -42,91 +46,133 @@ namespace Model
                 if(memberID == item.MemberID)
                 {
                     System.Console.WriteLine(item);                             
-
                 }
             }
         }
 
-        public void showVerboseList()
+        public string ShowVerboseList()
         {
             var memberList = ReadMemberListFile();
+
+            string verboseList = "";
 
             foreach (var member in memberList)
             {
-                 System.Console.WriteLine("Full name: " + member.FullName + "\n" +
+                verboseList += "Full name: " + member.FullName + "\n" +
                                             "Social Security Number: " + member.SocialSecurityNumber + "\n" +
-                                            "Member ID Number: " + member.MemberID + "\n" + "Boats and information: ");
+                                            "Member ID Number: " + member.MemberID + "\n" + "Boats and information:\n";
                 foreach (var boat in member.Boats)
                 {
-                    System.Console.WriteLine("BOAT: ID - " + boat.BoatID + ", Type - " + boat.BoatType + ", Length - " + boat.BoatLength + " Meters\n");
+                    verboseList += "BOAT: ID - " + boat.BoatID + ", Type - " + boat.BoatType + ", Length - " + boat.BoatLength + " Meters\n\n";
                 }
             }
+            return verboseList;
         }
 
-        public void showCompactList()
+        public string ShowCompactList()
         {
             var memberList = ReadMemberListFile();
 
+            string compactList = "";
+
             foreach (var item in memberList)
             {
-                    System.Console.WriteLine("Full name: " + item.FullName + "\n" + 
+                compactList += "Full name: " + item.FullName + "\n" + 
                                             "Member ID: " + item.MemberID + "\n" +
-                                            "Number of boats: " + item.Boats.Count() + "\n");
+                                            "Number of boats: " + item.Boats.Count() + "\n\n";
             }
+            return compactList;
         }
 
-        public void editMemberName(int memberID)
+        public void EditMemberName(int memberID)
         {
             var memberList = ReadMemberListFile();
 
-            foreach (var item in memberList)
-            {
-                if(memberID == item.MemberID)
-                {
-                    System.Console.WriteLine("Current name is: " + item.FullName + "\nInsert new name below:");
-                    item.FullName = Console.ReadLine();
-                }
-            }
-
-            WriteMemberListFile(memberList);
-        }
-
-        public void editMemberSSN(int memberID)
-        {
-            var memberList = ReadMemberListFile();
-
-            foreach (var item in memberList)
-            {
-                if(memberID == item.MemberID)
-                {
-                    System.Console.WriteLine("Current SSN is: " + item.SocialSecurityNumber + "\nInsert new SSN below:");
-                    item.SocialSecurityNumber = Int32.Parse(Console.ReadLine());  
-                }
-            }
-
-            WriteMemberListFile(memberList);
-        }
-
-        public void AddBoatToJSON(BoatModel boatModel, int memberID)
-        {
-            var memberList = ReadMemberListFile();
             foreach (var member in memberList)
             {
                 if(memberID == member.MemberID)
                 {
-                        if(member.Boats.Count() == 0) {
-                           boatModel.BoatID = 1;
-                        } else {
+                    member.FullName = Console.ReadLine();
+                }
+            }
+            WriteMemberListFile(memberList);
+        }
+
+        public string ShowMemberName(int memberID)
+        {
+            var memberList = ReadMemberListFile();
+
+            string editMemberText = "";
+
+            foreach (var member in memberList)
+            {
+                if(memberID == member.MemberID)
+                {
+                    editMemberText = "Current name is: " + member.FullName + "\nInsert new name below:";
+                }
+            }
+            return editMemberText;
+        }
+
+        public void EditMemberSSN(int memberID)
+        {
+            var memberList = ReadMemberListFile();
+
+            foreach (var item in memberList)
+            {
+                if(memberID == item.MemberID)
+                {
+                    item.SocialSecurityNumber = Int32.Parse(Console.ReadLine());  
+                }
+            }
+            WriteMemberListFile(memberList);
+        }
+
+        public string ShowMemberSSN(int memberID)
+        {
+            var memberList = ReadMemberListFile();
+
+            string memberSSN = "";
+
+            foreach (var member in memberList)
+            {
+                if(memberID == member.MemberID)
+                {
+                    memberSSN = "Current SSN is: " + member.SocialSecurityNumber + "\nInsert new SSN below:"; 
+                }
+            }
+            return memberSSN;
+        }
+
+        public string AddBoatToJSON(BoatModel boatModel, int memberID)
+        {
+            var memberList = ReadMemberListFile();
+
+            string addBoatList = "";
+
+            foreach (var member in memberList)
+            {
+                if(memberID == member.MemberID)
+                {
+                        if(member.Boats.Count() == 0) 
+                        {
+                            boatModel.BoatID = 1;
+                        } 
+                        else 
+                        {
                             var item = member.Boats.LastOrDefault();
                             boatModel.BoatID = item.BoatID + 1;
                         }
 
                         member.Boats.Add(boatModel);
-                        System.Console.WriteLine(boatModel.BoatType + " added to " + member.FullName);          
+                        addBoatList = boatModel.BoatType + " added to " + member.FullName;
+
                 }
 
             }
             WriteMemberListFile(memberList);
+
+            return addBoatList;          
         }
 
 
@@ -149,20 +195,37 @@ namespace Model
             var memberList = ReadMemberListFile();
 
             bool memberExists = false;
+            
 
             foreach (var member in memberList)
             {
                 if(memberID == member.MemberID)
                 {
-                    memberExists = true;
+                    memberExists = true;                      
+                }
+            }
+            return memberExists;
+        }
+
+         public string ShowMemberBoats(int memberID) 
+        {
+            var memberList = ReadMemberListFile();
+
+            string specificBoat = "";
+            
+
+            foreach (var member in memberList)
+            {
+                if(memberID == member.MemberID)
+                {
                     foreach (var boat in member.Boats)
                     {
-                        System.Console.WriteLine("BOAT: ID - " + boat.BoatID + ", Type - " + boat.BoatType + ", Length - " + boat.BoatLength + " Meters\n");
+                        specificBoat += "BOAT: ID - " + boat.BoatID + ", Type - " + boat.BoatType + ", Length - " + boat.BoatLength + " Meters\n";
                     }                         
                 }
             }
-                return memberExists;
-        } 
+            return specificBoat;
+        }  
 
         public void RemoveBoat(int memberID, int boatID) 
         {
@@ -178,9 +241,10 @@ namespace Model
             WriteMemberListFile(memberList);
         }
 
-        public void EditBoatType(int memberID, int boatID)
+        public void BoatType(int memberID, int boatID)
         {
             var memberList = ReadMemberListFile();
+
 
             foreach (var member in memberList)
             {
@@ -190,14 +254,12 @@ namespace Model
                     {
                         if(boatID == boat.BoatID)
                         {
-                            System.Console.WriteLine("Enter new type: ");
                             boat.BoatType = Console.ReadLine();
                         }
                     }     
                 }
             }
-
-            WriteMemberListFile(memberList);
+            WriteMemberListFile(memberList);   
         }
 
         public void EditBoatLength(int memberID, int boatID)
@@ -212,17 +274,12 @@ namespace Model
                     {
                         if(boatID == boat.BoatID)
                         {
-                            System.Console.WriteLine("Enter new length: ");
                             boat.BoatLength = Int32.Parse(Console.ReadLine());
                         }
                     }     
                 }
             }
-
             WriteMemberListFile(memberList);
         }
-
-        
     }
-    
 }

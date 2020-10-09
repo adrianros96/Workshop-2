@@ -17,27 +17,28 @@ namespace View
             Console.WriteLine("2: Edit boat");
             Console.WriteLine("3: Remove boat");
             Console.WriteLine("4: Exit");
-             switch(Console.ReadLine())
-                {
-                    case "1":
-                        AddBoat();
-                        return;
-                    case "2":
-                        EditBoat();
-                        break;
-                    case "3":
-                        RemoveBoat();
-                        break;                        
-                    case "4":
-                        break;                        
-                }
+            switch(Console.ReadLine())
+            {
+                case "1":
+                    AddBoat();
+                    return;
+                case "2":
+                    EditBoat();
+                    break;
+                case "3":
+                    RemoveBoat();
+                    break;                        
+                case "4":
+                    break;                        
+            }
         }
 
         public void AddBoat()
         {
             Console.Clear();
 
-            try {
+            try 
+            {
                 string boatType;
                 int length;
                 int memberID;
@@ -63,7 +64,8 @@ namespace View
         {
             Console.Clear();
 
-            try {
+            try
+            {
                 int memberID;
                 int boatID;
 
@@ -72,6 +74,7 @@ namespace View
                 bool result = dbModel.CheckIfMemberExists(memberID);
                 if (result)
                 {
+                    this.ShowSpecificBoat(memberID);
                     System.Console.WriteLine("Select the boat ID:");
                     boatID = Int32.Parse(Console.ReadLine());
                     dbModel.RemoveBoat(memberID, boatID);
@@ -83,6 +86,11 @@ namespace View
             }
         }
 
+        private void ShowSpecificBoat(int memberID)
+        {
+            System.Console.WriteLine(dbModel.ShowMemberBoats(memberID));
+        }
+
         public void EditBoat()
         {
             Console.Clear();
@@ -90,24 +98,25 @@ namespace View
             Console.WriteLine("1: Edit Boat Type");
             Console.WriteLine("2: Edit Boat Length");
             Console.WriteLine("Any key: Exit");
-             switch(Console.ReadLine())
-                {
-                    case "1":
-                        EditBoatType();
-                        break;
-                    case "2":
-                        EditBoatLength();
-                        break;
-                    case "3":
-                        break;                        
-                }
+            switch(Console.ReadLine())
+            {
+                case "1":
+                    EditBoatType();
+                    break;
+                case "2":
+                    EditBoatLength();
+                    break;
+                case "3":
+                    break;                        
+            }
         }
 
         public void EditBoatType()
         {
             Console.Clear();
 
-            try {
+            try 
+            {
                 int memberID;
                 int boatID;
 
@@ -118,7 +127,8 @@ namespace View
                 {
                     System.Console.WriteLine("Select the boat ID:");
                     boatID = Int32.Parse(Console.ReadLine());
-                    dbModel.EditBoatType(memberID, boatID);
+                    System.Console.WriteLine("Enter new type: ");
+                    dbModel.BoatType(memberID, boatID);
                 }
             }
             catch (Exception)
@@ -131,7 +141,8 @@ namespace View
         {
             Console.Clear();
 
-            try {
+            try 
+            {
                 int memberID;
                 int boatID;
 
@@ -142,6 +153,7 @@ namespace View
                 {
                     System.Console.WriteLine("Select the boat ID:");
                     boatID = Int32.Parse(Console.ReadLine());
+                    System.Console.WriteLine("Enter new length: ");
                     dbModel.EditBoatLength(memberID, boatID);
                 }
             }

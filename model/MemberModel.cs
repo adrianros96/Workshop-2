@@ -5,12 +5,18 @@ namespace Model
 {
     class MemberModel
     {
-        public List<BoatModel> Boats = new List<BoatModel>();
+        private List<BoatModel> _Boats = new List<BoatModel>();
         public string FullName { get; set; }
 
         public int SocialSecurityNumber { get; set; }
         
         public int MemberID { get; set; }
+
+        public List<BoatModel> Boats 
+        {
+            get { return _Boats; }
+            set { _Boats = value; } 
+        }
 
         public MemberModel(string name, int ssn)
         {

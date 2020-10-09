@@ -4,7 +4,7 @@ namespace View
             Exit = 0,
             AddMember = 1,
             EditMember = 2,
-            RemoveMember = 3,
+            DeleteMember = 3,
             ShowUser = 4,
             VerboseMemberList = 5,
             CompactMemberList = 6,

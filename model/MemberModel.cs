@@ -5,17 +5,26 @@ namespace Model
 {
     class MemberModel
     {
-        private List<BoatModel> _Boats = new List<BoatModel>();
+        private List<BoatModel> _boats = new List<BoatModel>();
+
+        private int _memberID;
+
+        private int _socialSecurityNumber;
+        
         public string FullName { get; set; }
 
-        public int SocialSecurityNumber { get; set; }
-        
-        public int MemberID { get; set; }
-
+        public int SocialSecurityNumber { 
+            get { return _socialSecurityNumber; }
+            set { _socialSecurityNumber = value; }
+        }
+        public int MemberID  { 
+            get { return _memberID; }
+            set { _memberID = value; }
+        }
         public List<BoatModel> Boats 
         {
-            get { return _Boats; }
-            set { _Boats = value; } 
+            get { return _boats; }
+            set { _boats = value; } 
         }
 
         public MemberModel(string name, int ssn)
@@ -23,6 +32,7 @@ namespace Model
             FullName = name;
             SocialSecurityNumber = ssn;
         }
+        
 
         public override string ToString()
         {

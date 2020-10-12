@@ -1,5 +1,7 @@
 using Model;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace View
 {
@@ -67,8 +69,20 @@ namespace View
                 Console.Clear();
                 System.Console.WriteLine("Edit user full name by entering ID");
                 memberID = Int32.Parse(Console.ReadLine());
-                this.ShowMemberEdit(memberID);
-                dbModel.EditMemberName(memberID);
+                var memberList = dbModel.GetMemberList();
+
+                string showMember = this.ShowMemberEdit(memberID, memberList);
+                System.Console.WriteLine(showMember);
+
+
+                foreach (var member in memberList)
+                {
+                    if(memberID == member.MemberID)
+                    {
+                        member.FullName = Console.ReadLine();
+                    }
+                }
+                dbModel.WriteMemberListFile(memberList);
             }
             catch (Exception)
             {     
@@ -76,21 +90,40 @@ namespace View
             }
         }
 
-        private void ShowMemberEdit(int memberID)
+        private string ShowMemberEdit(int memberID, List<MemberModel> memberList)
         {
-            System.Console.WriteLine(dbModel.ShowMemberName(memberID));
+            string editMemberText = "";
+
+            foreach (var member in memberList)
+            {
+                if(memberID == member.MemberID)
+                {
+                    editMemberText = "Current name is: " + member.FullName + "\nInsert new name below:";
+                }
+            }
+            return editMemberText;
         }
 
         public void EditSSN()
         {
             try
             {
-                int ID; 
+                int memberID; 
                 Console.Clear();
                 System.Console.WriteLine("Change user SSN by entering ID");
-                ID = Int32.Parse(Console.ReadLine());
-                this.ShowSpecificBoat(ID);
-                dbModel.EditMemberSSN(ID);
+                memberID = Int32.Parse(Console.ReadLine());
+                var memberList = dbModel.GetMemberList();
+                var memberSSN = this.ShowSpecificBoat(memberID, memberList);
+                System.Console.WriteLine(memberSSN);
+
+                foreach (var item in memberList)
+                {
+                    if(memberID == item.MemberID)
+                    {
+                        item.SocialSecurityNumber = Int32.Parse(Console.ReadLine());  
+                    }
+                }
+                dbModel.WriteMemberListFile(memberList);
             }
             catch (Exception)
             {     
@@ -98,9 +131,18 @@ namespace View
             }
         }
 
-        private void ShowSpecificBoat(int memberID)
+        private string ShowSpecificBoat(int memberID, List<MemberModel> memberList)
         {
-            System.Console.WriteLine(dbModel.ShowMemberSSN(memberID));
+            string memberSSN = "";
+
+            foreach (var member in memberList)
+            {
+                if(memberID == member.MemberID)
+                {
+                    memberSSN = "Current SSN is: " + member.SocialSecurityNumber + "\nInsert new SSN below:"; 
+                }
+            }
+            return memberSSN;
         }
 
         public void DeleteMember()
@@ -126,7 +168,15 @@ namespace View
                 System.Console.WriteLine("Please enter member ID:");
                 int memberID = Int32.Parse(Console.ReadLine());
 
-                dbModel.ShowMember(memberID);
+                var memberList = dbModel.GetMemberList();
+
+                 foreach (var item in memberList)
+                {
+                    if(memberID == item.MemberID)
+                    {
+                        System.Console.WriteLine(item);                             
+                    }
+                }
             
             } 
             catch (Exception)
@@ -139,7 +189,20 @@ namespace View
         {
             System.Console.WriteLine("Verbose List:");
 
-            string verboseList = dbModel.ShowVerboseList();
+            var memberList = dbModel.GetMemberList();
+
+            string verboseList = "";
+
+            foreach (var member in memberList)
+            {
+                verboseList += "Full name: " + member.FullName + "\n" +
+                                            "Social Security Number: " + member.SocialSecurityNumber + "\n" +
+                                            "Member ID Number: " + member.MemberID + "\n" + "Boats and information:\n\n";
+                foreach (var boat in member.Boats)
+                {
+                    verboseList += "BOAT: ID - " + boat.BoatID + ", Type - " + boat.BoatType + ", Length - " + boat.BoatLength + " Meters\n\n";
+                }
+            }
             System.Console.WriteLine(verboseList);
 
             ExitToMainMenu();
@@ -149,7 +212,16 @@ namespace View
         {
             System.Console.WriteLine("Compact List:");
 
-            string compactList = dbModel.ShowCompactList();
+            var memberList = dbModel.GetMemberList();
+
+            string compactList = "";
+
+            foreach (var item in memberList)
+            {
+                compactList += "Full name: " + item.FullName + "\n" + 
+                                            "Member ID: " + item.MemberID + "\n" +
+                                            "Number of boats: " + item.Boats.Count() + "\n\n";
+            }
             System.Console.WriteLine(compactList);
             
             ExitToMainMenu();

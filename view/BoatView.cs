@@ -1,5 +1,6 @@
 using Model;
 using System;
+using System.Linq;
 
 namespace View
 {
@@ -51,8 +52,30 @@ namespace View
                 memberID = Int32.Parse(Console.ReadLine());
 
                 boatModel = new BoatModel(boatType, length);
+                var memberList = dbModel.GetMemberList();
+                string addBoatList = "";
 
-                dbModel.AddBoatToJSON(boatModel, memberID);
+                foreach (var member in memberList)
+                {
+                    if(memberID == member.MemberID)
+                    {
+                            if(member.Boats.Count() == 0) 
+                            {
+                                boatModel.BoatID = 1;
+                            } 
+                            else 
+                            {
+                                var item = member.Boats.LastOrDefault();
+                                boatModel.BoatID = item.BoatID + 1;
+                            }
+
+                            member.Boats.Add(boatModel);
+                            addBoatList = boatModel.BoatType + " added to " + member.FullName;
+                            System.Console.WriteLine(addBoatList);
+                    }
+
+                }
+                dbModel.WriteMemberListFile(memberList);
             }
             catch (Exception)
             {     
@@ -74,7 +97,8 @@ namespace View
                 bool result = dbModel.CheckIfMemberExists(memberID);
                 if (result)
                 {
-                    this.ShowSpecificBoat(memberID);
+                    string boats =this.ShowSpecificBoat(memberID);
+                    System.Console.WriteLine(boats);
                     System.Console.WriteLine("Select the boat ID:");
                     boatID = Int32.Parse(Console.ReadLine());
                     dbModel.RemoveBoat(memberID, boatID);
@@ -86,9 +110,24 @@ namespace View
             }
         }
 
-        private void ShowSpecificBoat(int memberID)
+        private string ShowSpecificBoat(int memberID)
         {
-            System.Console.WriteLine(dbModel.ShowMemberBoats(memberID));
+           var memberList = dbModel.GetMemberList();
+
+            string specificBoat = "";
+            
+
+            foreach (var member in memberList)
+            {
+                if(memberID == member.MemberID)
+                {
+                    foreach (var boat in member.Boats)
+                    {
+                        specificBoat += "BOAT: ID - " + boat.BoatID + ", Type - " + boat.BoatType + ", Length - " + boat.BoatLength + " Meters\n";
+                    }                         
+                }
+            }
+            return specificBoat;
         }
 
         public void EditBoat()
@@ -128,7 +167,22 @@ namespace View
                     System.Console.WriteLine("Select the boat ID:");
                     boatID = Int32.Parse(Console.ReadLine());
                     System.Console.WriteLine("Enter new type: ");
-                    dbModel.BoatType(memberID, boatID);
+                    var memberList = dbModel.GetMemberList();
+
+                    foreach (var member in memberList)
+                    {
+                        if(memberID == member.MemberID)
+                        {
+                            foreach (var boat in member.Boats)
+                            {
+                                if(boatID == boat.BoatID)
+                                {
+                                    boat.BoatType = Console.ReadLine();
+                                }
+                            }     
+                        }
+                    }
+                        dbModel.WriteMemberListFile(memberList);   
                 }
             }
             catch (Exception)
@@ -154,7 +208,23 @@ namespace View
                     System.Console.WriteLine("Select the boat ID:");
                     boatID = Int32.Parse(Console.ReadLine());
                     System.Console.WriteLine("Enter new length: ");
-                    dbModel.EditBoatLength(memberID, boatID);
+
+                    var memberList = dbModel.GetMemberList();
+
+                    foreach (var member in memberList)
+                    {
+                        if(memberID == member.MemberID)
+                        {
+                            foreach (var boat in member.Boats)
+                            {
+                                if(boatID == boat.BoatID)
+                                {
+                                    boat.BoatLength = Int32.Parse(Console.ReadLine());
+                                }
+                            }     
+                        }
+                    }
+                    dbModel.WriteMemberListFile(memberList);
                 }
             }
             catch (Exception)

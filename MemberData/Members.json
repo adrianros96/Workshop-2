@@ -1,1 +1,1 @@
-[{"FullName":"Adrian","SocialSecurityNumber":960303,"MemberID":1,"Boats":[{"BoatID":1,"BoatType":"Kayak","BoatLength":20},{"BoatID":2,"BoatType":"sailboat","BoatLength":200}]},{"FullName":"Sebbe","SocialSecurityNumber":960202,"MemberID":2,"Boats":[]},{"FullName":"Bond James","SocialSecurityNumber":508023,"MemberID":3,"Boats":[]}]
+[{"SocialSecurityNumber":120130,"FullName":"Test Person","MemberID":1,"Boats":[{"BoatID":1,"BoatType":"Rowboat","BoatLength":3}]}]

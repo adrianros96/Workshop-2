@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+
 namespace Model
 {
     class DatabaseModel
     {
-
-        MemberModel memberModel;
+        
         public void AddToJSON(MemberModel memberModel)
         {
             var memberList = ReadMemberListFile();
